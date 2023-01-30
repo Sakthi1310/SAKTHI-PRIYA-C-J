@@ -1,0 +1,345 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| college            |
+| cricket            |
+| database_name      |
+| performance_schema |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> use cricket;
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_cricket |
++-------------------+
+| players           |
+| saveetha          |
++-------------------+
+2 rows in set (0.00 sec)
+
+mysql> desc saveetha;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| name      | varchar(200) | YES  |     | NULL    |       |
+| age       | int(200)     | YES  |     | NULL    |       |
+| dob       | int(200)     | YES  |     | NULL    |       |
+| blood_grp | varchar(200) | YES  |     | NULL    |       |
+| reg_no    | int(200)     | YES  |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+5 rows in set (0.02 sec)
+
+mysql> drop column reg_no;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'column reg_no' at line 1
+mysql> alter table saveetha drop blood_grp;
+Query OK, 6 rows affected (0.03 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> desc saveetha;
++--------+--------------+------+-----+---------+-------+
+| Field  | Type         | Null | Key | Default | Extra |
++--------+--------------+------+-----+---------+-------+
+| name   | varchar(200) | YES  |     | NULL    |       |
+| age    | int(200)     | YES  |     | NULL    |       |
+| dob    | int(200)     | YES  |     | NULL    |       |
+| reg_no | int(200)     | YES  |     | NULL    |       |
++--------+--------------+------+-----+---------+-------+
+4 rows in set (0.02 sec)
+
+mysql> insert saveetha values('saks',17,2005-03-13,1310);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert saveetha values('kavi',42,1981-09-03,2345);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert saveetha values('sanjay',14,2010-01-10,1324);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert saveetha values('jagadeesh',45,1977-09-21,6784);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from saveetha;
++--------------+------+-------+--------+
+| name         | age  | dob   | reg_no |
++--------------+------+-------+--------+
+| sakthi priya |   17 | -1995 |   1310 |
+| VIJAY        |   18 | -2002 |   1013 |
+| erine diya   |   17 | -2003 |   1800 |
+| nithish      |   18 | -2014 |     18 |
+| keerthanaa   |   17 | -1981 |   2921 |
+| SANTHOSH     |   18 | -1986 |   2129 |
+| saks         |   17 |  1989 |   1310 |
+| kavi         |   42 |  1969 |   2345 |
+| sanjay       |   14 |  1999 |   1324 |
+| jagadeesh    |   45 |  1947 |   6784 |
++--------------+------+-------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select * from saveetha where name = 'saks';
++------+------+------+--------+
+| name | age  | dob  | reg_no |
++------+------+------+--------+
+| saks |   17 | 1989 |   1310 |
++------+------+------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from saveetha;
++--------------+------+-------+--------+
+| name         | age  | dob   | reg_no |
++--------------+------+-------+--------+
+| sakthi priya |   17 | -1995 |   1310 |
+| VIJAY        |   18 | -2002 |   1013 |
+| erine diya   |   17 | -2003 |   1800 |
+| nithish      |   18 | -2014 |     18 |
+| keerthanaa   |   17 | -1981 |   2921 |
+| SANTHOSH     |   18 | -1986 |   2129 |
+| saks         |   17 |  1989 |   1310 |
+| kavi         |   42 |  1969 |   2345 |
+| sanjay       |   14 |  1999 |   1324 |
+| jagadeesh    |   45 |  1947 |   6784 |
++--------------+------+-------+--------+
+10 rows in set (0.00 sec)
+
+mysql> delete from saveetha
+    -> where name = 'sakthi priya';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> delete from saveetha
+    -> where name='erine diya';
+Query OK, 1 row affected (0.00 sec)
+
+mysql> delete from saveetha
+    -> where reg_no = 18;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> delete from saveetha
+    -> where name='keerthanaa';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> where name='santhosh';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where name='santhosh'' at line 1
+mysql> delete from saveetha
+    -> where name='santhosh';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from saveetha;
++-----------+------+-------+--------+
+| name      | age  | dob   | reg_no |
++-----------+------+-------+--------+
+| VIJAY     |   18 | -2002 |   1013 |
+| saks      |   17 |  1989 |   1310 |
+| kavi      |   42 |  1969 |   2345 |
+| sanjay    |   14 |  1999 |   1324 |
+| jagadeesh |   45 |  1947 |   6784 |
++-----------+------+-------+--------+
+5 rows in set (0.00 sec)
+
+mysql> update saveetha set name='saks' where age=17;
+Query OK, 0 rows affected (0.01 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> select * from student;
+ERROR 1146 (42S02): Table 'cricket.student' doesn't exist
+mysql> select * from saveetha;
++-----------+------+-------+--------+
+| name      | age  | dob   | reg_no |
++-----------+------+-------+--------+
+| VIJAY     |   18 | -2002 |   1013 |
+| saks      |   17 |  1989 |   1310 |
+| kavi      |   42 |  1969 |   2345 |
+| sanjay    |   14 |  1999 |   1324 |
+| jagadeesh |   45 |  1947 |   6784 |
++-----------+------+-------+--------+
+5 rows in set (0.00 sec)
+
+mysql> update saveetha set name='VIJAY' where age=18;
+Query OK, 0 rows affected (0.01 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> select * from saveetha;
++-----------+------+-------+--------+
+| name      | age  | dob   | reg_no |
++-----------+------+-------+--------+
+| VIJAY     |   18 | -2002 |   1013 |
+| saks      |   17 |  1989 |   1310 |
+| kavi      |   42 |  1969 |   2345 |
+| sanjay    |   14 |  1999 |   1324 |
+| jagadeesh |   45 |  1947 |   6784 |
++-----------+------+-------+--------+
+5 rows in set (0.00 sec)
+
+mysql> update saveetha set name='vijay' where age=18;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from saveetha;
++-----------+------+-------+--------+
+| name      | age  | dob   | reg_no |
++-----------+------+-------+--------+
+| vijay     |   18 | -2002 |   1013 |
+| saks      |   17 |  1989 |   1310 |
+| kavi      |   42 |  1969 |   2345 |
+| sanjay    |   14 |  1999 |   1324 |
+| jagadeesh |   45 |  1947 |   6784 |
++-----------+------+-------+--------+
+5 rows in set (0.00 sec)
+
+mysql> alter table saveetha add gender datatype;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'datatype' at line 1
+mysql> alter table saveetha add gender;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select * from saveetha in ('i');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'in ('i')' at line 1
+mysql> select * from saveetha in ('18');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'in ('18')' at line 1
+mysql> select * from saveetha in (18);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'in (18)' at line 1
+mysql> select * from saveetha where name in('i');
+Empty set (0.00 sec)
+
+mysql> select * from saveetha where name in('saks');
++------+------+------+--------+
+| name | age  | dob  | reg_no |
++------+------+------+--------+
+| saks |   17 | 1989 |   1310 |
++------+------+------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from where age between 17 and 45;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where age between 17 and 45' at line 1
+mysql> select * from saveetha where age between 17 and 45;
++-----------+------+-------+--------+
+| name      | age  | dob   | reg_no |
++-----------+------+-------+--------+
+| vijay     |   18 | -2002 |   1013 |
+| saks      |   17 |  1989 |   1310 |
+| kavi      |   42 |  1969 |   2345 |
+| jagadeesh |   45 |  1947 |   6784 |
++-----------+------+-------+--------+
+4 rows in set (0.01 sec)
+
+mysql> select * from saveetha where name like sh%;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%' at line 1
+mysql> select * from saveetha where name like %sh;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%sh' at line 1
+mysql> select * from saveetha where name like '%sh';
++-----------+------+------+--------+
+| name      | age  | dob  | reg_no |
++-----------+------+------+--------+
+| jagadeesh |   45 | 1947 |   6784 |
++-----------+------+------+--------+
+1 row in set (0.01 sec)
+
+mysql> select * avg(age) from saveetha;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'avg(age) from saveetha' at line 1
+mysql> select * from saveetha;
++-----------+------+-------+--------+
+| name      | age  | dob   | reg_no |
++-----------+------+-------+--------+
+| vijay     |   18 | -2002 |   1013 |
+| saks      |   17 |  1989 |   1310 |
+| kavi      |   42 |  1969 |   2345 |
+| sanjay    |   14 |  1999 |   1324 |
+| jagadeesh |   45 |  1947 |   6784 |
++-----------+------+-------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select avg(age) from saveetha;
++----------+
+| avg(age) |
++----------+
+|  27.2000 |
++----------+
+1 row in set (0.01 sec)
+
+mysql> select sum(age) from saveetha;
++----------+
+| sum(age) |
++----------+
+|      136 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select min(age) from saveetha;
++----------+
+| min(age) |
++----------+
+|       14 |
++----------+
+1 row in set (0.01 sec)
+
+mysql> select max age from saveetha;
+ERROR 1054 (42S22): Unknown column 'max' in 'field list'
+mysql> select max(age) from saveetha;
++----------+
+| max(age) |
++----------+
+|       45 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select subraction(age) from saveetha;
+ERROR 1146 (42S02): Table 'mysql.proc' doesn't exist
+mysql> select 8 from saveetha;
++---+
+| 8 |
++---+
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
++---+
+5 rows in set (0.00 sec)
+
+mysql> select * from saveetha;
++-----------+------+-------+--------+
+| name      | age  | dob   | reg_no |
++-----------+------+-------+--------+
+| vijay     |   18 | -2002 |   1013 |
+| saks      |   17 |  1989 |   1310 |
+| kavi      |   42 |  1969 |   2345 |
+| sanjay    |   14 |  1999 |   1324 |
+| jagadeesh |   45 |  1947 |   6784 |
++-----------+------+-------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select name,age from saveetha order by reg_no;
++-----------+------+
+| name      | age  |
++-----------+------+
+| vijay     |   18 |
+| saks      |   17 |
+| sanjay    |   14 |
+| kavi      |   42 |
+| jagadeesh |   45 |
++-----------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from saveetha where age between 14 and 45;
++-----------+------+-------+--------+
+| name      | age  | dob   | reg_no |
++-----------+------+-------+--------+
+| vijay     |   18 | -2002 |   1013 |
+| saks      |   17 |  1989 |   1310 |
+| kavi      |   42 |  1969 |   2345 |
+| sanjay    |   14 |  1999 |   1324 |
+| jagadeesh |   45 |  1947 |   6784 |
++-----------+------+-------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from saveetha where age in (18);
++-------+------+-------+--------+
+| name  | age  | dob   | reg_no |
++-------+------+-------+--------+
+| vijay |   18 | -2002 |   1013 |
++-------+------+-------+--------+
+1 row in set (0.00 sec)
+
+mysql> update saveetha set name='sakthi' where age =18;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0

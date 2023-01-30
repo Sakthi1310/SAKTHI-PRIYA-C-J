@@ -1,0 +1,270 @@
+`mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| college            |
+| cricket            |
+| database_name      |
+| performance_schema |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> create database students;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> create table people(name varchar(20),age int(20),gender varchar(1));
+ERROR 1046 (3D000): No database selected
+mysql> use database students;
+ERROR 1049 (42000): Unknown database 'database'
+mysql> use students;
+Database changed
+mysql> create table people(name varchar(20),age int(20),gender varchar(1));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show people;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'people' at line 1
+mysql> desc people;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| name   | varchar(20) | YES  |     | NULL    |       |
+| age    | int(20)     | YES  |     | NULL    |       |
+| gender | varchar(1)  | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.02 sec)
+
+mysql> insert into people values('saks',25,'f');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into people values('keera',25,'f');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into people values('sans',26,'m');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into people values('vijay',26,'m');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from people;
++-------+------+--------+
+| name  | age  | gender |
++-------+------+--------+
+| saks  |   25 | f      |
+| keera |   25 | f      |
+| sans  |   26 | m      |
+| vijay |   26 | m      |
++-------+------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select * from saveetha where age =25;
+ERROR 1146 (42S02): Table 'students.saveetha' doesn't exist
+mysql> select * from people where age =25;
++-------+------+--------+
+| name  | age  | gender |
++-------+------+--------+
+| saks  |   25 | f      |
+| keera |   25 | f      |
++-------+------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select name,gender from people order by name;
++-------+--------+
+| name  | gender |
++-------+--------+
+| keera | f      |
+| saks  | f      |
+| sans  | m      |
+| vijay | m      |
++-------+--------+
+4 rows in set (0.00 sec)
+
+mysql> update people name='monkey' where age=26;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '='monkey' where age=26' at line 1
+mysql>
+mysql> update people set name='monkey' where age=26;
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from people;
++--------+------+--------+
+| name   | age  | gender |
++--------+------+--------+
+| saks   |   25 | f      |
+| keera  |   25 | f      |
+| monkey |   26 | m      |
+| monkey |   26 | m      |
++--------+------+--------+
+4 rows in set (0.00 sec)
+
+mysql> update people set name='vijay' where age=26;
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> delete from people
+    -> where name='monkey';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from people;
++-------+------+--------+
+| name  | age  | gender |
++-------+------+--------+
+| saks  |   25 | f      |
+| keera |   25 | f      |
+| vijay |   26 | m      |
+| vijay |   26 | m      |
++-------+------+--------+
+4 rows in set (0.00 sec)
+
+mysql> insert into people values('sans',26,'m');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> delete from people
+    -> where name='vijay';
+Query OK, 2 rows affected (0.00 sec)
+
+mysql> insert into people values('vijay',26,'m');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> selct * from people;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'selct * from people' at line 1
+mysql> select * from people;
++-------+------+--------+
+| name  | age  | gender |
++-------+------+--------+
+| saks  |   25 | f      |
+| keera |   25 | f      |
+| sans  |   26 | m      |
+| vijay |   26 | m      |
++-------+------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select max(age) from people;
++----------+
+| max(age) |
++----------+
+|       26 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select min(age) from people;
++----------+
+| min(age) |
++----------+
+|       25 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select sum(age) from people;
++----------+
+| sum(age) |
++----------+
+|      102 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select avg(age) from people;
++----------+
+| avg(age) |
++----------+
+|  25.5000 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(age) from people;
++------------+
+| count(age) |
++------------+
+|          4 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select count(name) from people;
++-------------+
+| count(name) |
++-------------+
+|           4 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select count(gender) from people;
++---------------+
+| count(gender) |
++---------------+
+|             4 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select * from people where name between 'saks' and 'vijay';
++-------+------+--------+
+| name  | age  | gender |
++-------+------+--------+
+| saks  |   25 | f      |
+| sans  |   26 | m      |
+| vijay |   26 | m      |
++-------+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from people where gender in('f');
++-------+------+--------+
+| name  | age  | gender |
++-------+------+--------+
+| saks  |   25 | f      |
+| keera |   25 | f      |
++-------+------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select age from people order by name;
++------+
+| age  |
++------+
+|   25 |
+|   25 |
+|   26 |
+|   26 |
++------+
+4 rows in set (0.00 sec)
+
+mysql> select age,name from people order by name;
++------+-------+
+| age  | name  |
++------+-------+
+|   25 | keera |
+|   25 | saks  |
+|   26 | sans  |
+|   26 | vijay |
++------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select name gender from people
+    -> group by age having count(name)>0;
++--------+
+| gender |
++--------+
+| saks   |
+| sans   |
++--------+
+2 rows in set (0.00 sec)
+
+mysql> select name,gender from people
+    -> group by age having count(name)>0;
++------+--------+
+| name | gender |
++------+--------+
+| saks | f      |
+| sans | m      |
++------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select count(name),gender from people
+    -> group by age having count(name)>0;
++-------------+--------+
+| count(name) | gender |
++-------------+--------+
+|           2 | f      |
+|           2 | m      |
++-------------+--------+
+2 rows in set (0.00 sec)
+
+mysql>
+

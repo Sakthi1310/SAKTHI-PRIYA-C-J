@@ -1,0 +1,94 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| college            |
+| cricket            |
+| database_name      |
+| performance_schema |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> use college;
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_college |
++-------------------+
+| engineering       |
+| faculty           |
+| people            |
+| players           |
+| student           |
++-------------------+
+5 rows in set (0.01 sec)
+
+mysql> desc players;
++--------+--------------+------+-----+---------+-------+
+| Field  | Type         | Null | Key | Default | Extra |
++--------+--------------+------+-----+---------+-------+
+| name   | varchar(200) | YES  |     | NULL    |       |
+| jersey | int(250)     | YES  |     | NULL    |       |
++--------+--------------+------+-----+---------+-------+
+2 rows in set (0.02 sec)
+
+mysql> alter table players
+    -> add primary key(name);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc players;
++--------+--------------+------+-----+---------+-------+
+| Field  | Type         | Null | Key | Default | Extra |
++--------+--------------+------+-----+---------+-------+
+| name   | varchar(200) | NO   | PRI |         |       |
+| jersey | int(250)     | YES  |     | NULL    |       |
++--------+--------------+------+-----+---------+-------+
+2 rows in set (0.02 sec)
+
+mysql> desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| name   | varchar(30) | YES  |     | NULL    |       |
+| age    | int(5)      | YES  |     | NULL    |       |
+| gender | varchar(1)  | YES  |     | NULL    |       |
+| dob    | int(30)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.02 sec)
+
+mysql> alter table student
+    -> add foreign key(name);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 2
+mysql> alter table student
+    -> add foreign key(name) references players(name);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| name   | varchar(30) | YES  | MUL | NULL    |       |
+| age    | int(5)      | YES  |     | NULL    |       |
+| gender | varchar(1)  | YES  |     | NULL    |       |
+| dob    | int(30)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> drop table faculty;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> show tables;
++-------------------+
+| Tables_in_college |
++-------------------+
+| engineering       |
+| people            |
+| players           |
+| student           |
++-------------------+
+4 rows in set (0.00 sec)
+
+mysql>
